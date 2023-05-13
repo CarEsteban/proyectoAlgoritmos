@@ -69,7 +69,7 @@ def CambiarDatos(df):
 ciclo = True
 
 while ciclo == True:
-    print("Bienvenido a Stidify")
+    print("Bienvenido a Studify")
     print("1. Iniciar Sesion: \n2. Registrarse: \n3. Modificar Datos")
     opcion= int(input("Que decea hacer? "))
                
