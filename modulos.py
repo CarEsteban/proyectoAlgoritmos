@@ -4,15 +4,15 @@ import os
 import sys
 
 def Registrarse(df):
-    #df = pd.DataFrame(columns=['Usuario', 'Contraseña'])  
+    df = pd.DataFrame(columns=['Usuario', 'Contraseña'])  
     name = input("Ingrese el nombre de la cuenta: ")
     password = input("Ingrese la contraseña de la cuenta: ")
 
     addrow = pd.DataFrame({'Usuario': [name], 'Password': [password]})
 
     df = pd.concat([df, addrow], ignore_index=True)
-
     print(df)
+    return(df)
 
 def pregunta(estado):
     opcion = input("Desea realizar otra operacion? Si/No: ")
