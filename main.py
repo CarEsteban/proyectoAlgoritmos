@@ -28,6 +28,7 @@ while ciclo == True:
         print("BIENVENIDO AL INICIO DE SESIÓN")
         print("--------------------------------------")
         IniciarSesion(df)
+        Categorias()
         
         
         #PREGUNTA PARA REPETIR EL CODIGO

@@ -65,7 +65,7 @@ def CambiarDatos(df):
             df.at[int(maskPassword.index.values), 'Password'] = newPassword
           
 
-def categorias():
+def Categorias():
 #Pantalla de categorías
 #¡Nota! Los datos como nombres de los cursos, cantidad de suscriptores y calificaciones no son datos verdaderos, su único fin es ejemplificar cómo se verán en la pantalla de Turtle del programa final.
 #Menú principal
