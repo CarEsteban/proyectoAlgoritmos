@@ -3,26 +3,26 @@
 # Descripcion: Ejercicio en clase
 # Ernesto David Ascencio Ramírez, Hugo Daniel Barillas Ajín
 # carné 23009
-import pandas as pd
-import os
-import sys
+#import pandas as pd
+#import os
+#import sys
 
 #CÓDIGO DE REFERENCIA CREADO POR ERNESTO Y HUGO
 #NO UTILIZADO EN LA EJECUCIÓN DEL PROGRAMA
 
-def pregunta(estado):
-    opcion = input("Desea realizar otra operacion? Si/No: ")
-    opcion = opcion.lower().replace('í', 'i')
-    if opcion == 'si':
-        estado = True
-        os.system("cls")
-      
-    elif opcion == 'no':
-        os.system("cls")
-        print("Saliendo del programa...")
-        estado = False
-        sys.exit(0)
-    return estado 
+#def pregunta(estado):
+#   opcion = input("Desea realizar otra operacion? Si/No: ")
+#    opcion = opcion.lower().replace('í', 'i')
+#    if opcion == 'si':
+#        estado = True
+##        os.system("cls")
+#      
+#    elif opcion == 'no':
+#        os.system("cls")
+#        print("Saliendo del programa...")
+#        estado = False
+#        sys.exit(0)
+#   return estado 
 
 
 df = pd.DataFrame(columns=['Usuario', 'Password'])  
@@ -94,12 +94,12 @@ while ciclo == True:
         print(df)
  
         #Registrarse(df)
-        ciclo = pregunta(ciclo)
+        #ciclo = pregunta(ciclo)
         
     elif opcion == 3:
         CambiarDatos(df)
         
-        ciclo = pregunta(ciclo)
+        #ciclo = pregunta(ciclo)
          
     else:
         print("Saliendo del programa")

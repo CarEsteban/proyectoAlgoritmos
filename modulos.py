@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import sys
 
-def Registrarse(df):
+def Registrarse(df): 
     #df = pd.DataFrame(columns=['Usuario', 'Contraseña'])  
     name = input("Ingrese el nombre de la cuenta: ")
     password = input("Ingrese la contraseña de la cuenta: ")
@@ -12,15 +12,18 @@ def Registrarse(df):
 
     df = pd.concat([df, addrow], ignore_index=True)
     print(df)
-    #return(df)
+
+    return df
+
+
 
 def pregunta(estado):
     opcion = input("Desea realizar otra operacion? Si/No: ")
     opcion = opcion.lower().replace('í', 'i')
     if opcion == 'si':
         estado = True
-        os.system("pause")
-        os.system("cls")
+        #os.system("pause")
+        #os.system("cls")
       
     elif opcion == 'no':
         os.system("cls")
@@ -42,7 +45,7 @@ def IniciarSesion(df):
         
         os.system("pause")
         os.system("cls")
-        categorias()
+        Categorias()
         
     #print(df[maskName].index)
          
@@ -65,7 +68,7 @@ def CambiarDatos(df):
             df.at[int(maskPassword.index.values), 'Password'] = newPassword
           
 
-def categorias():
+def Categorias():
 #Pantalla de categorías
 #¡Nota! Los datos como nombres de los cursos, cantidad de suscriptores y calificaciones no son datos verdaderos, su único fin es ejemplificar cómo se verán en la pantalla de Turtle del programa final.
 #Menú principal
