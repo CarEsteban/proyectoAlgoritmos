@@ -7,6 +7,9 @@ import pandas as pd
 import os
 import sys
 
+#CÓDIGO DE REFERENCIA CREADO POR ERNESTO Y HUGO
+#NO UTILIZADO EN LA EJECUCIÓN DEL PROGRAMA
+
 def pregunta(estado):
     opcion = input("Desea realizar otra operacion? Si/No: ")
     opcion = opcion.lower().replace('í', 'i')
