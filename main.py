@@ -12,16 +12,7 @@ from modulos import *
 
 df = pd.DataFrame(columns=['Usuario', 'Password'])  
 
-def Registrarse(df):
-    #df = pd.DataFrame(columns=['Usuario', 'Contraseña'])  
-    name = input("Ingrese el nombre de la cuenta: ")
-    password = input("Ingrese la contraseña de la cuenta: ")
 
-    addrow = pd.DataFrame({'Usuario': [name], 'Password': [password]})
-
-    df = pd.concat([df, addrow], ignore_index=True)
-
-    print(df)
 
 
 ciclo = True
