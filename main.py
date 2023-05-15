@@ -38,14 +38,7 @@ while ciclo == True:
         print("BIENVENIDO AL REGISTRO")
         print("--------------------------------------")
 
-        name = input("Ingrese el nombre de la cuenta: ")
-        password = input("Ingrese la contraseña de la cuenta: ")
-
-        addrow = pd.DataFrame({'Usuario': [name], 'Password': [password]})
-
-        df = pd.concat([df, addrow], ignore_index=True)
-
-        print(df)
+        Registrarse(df)
  
         #PREGUNTA PARA REPETIR EL CODIGO
         ciclo = pregunta(ciclo)
