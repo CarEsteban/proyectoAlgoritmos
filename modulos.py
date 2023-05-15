@@ -22,8 +22,8 @@ def pregunta(estado):
     opcion = opcion.lower().replace('í', 'i')
     if opcion == 'si':
         estado = True
-        #os.system("pause")
-        #os.system("cls")
+        os.system("pause")
+        os.system("cls")
       
     elif opcion == 'no':
         os.system("cls")

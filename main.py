@@ -18,8 +18,8 @@ while ciclo == True:
     print("Bienvenido a Studify")
     print("1. Iniciar Sesion: \n2. Registrarse: \n3. Modificar Datos")
     opcion= int(input("Que decea hacer? "))
-    #os.system("pause")
-    #os.system("cls")
+    os.system("pause")
+    os.system("cls")
                
     if opcion == 1:
         print("BIENVENIDO AL INICIO DE SESIÓN")
