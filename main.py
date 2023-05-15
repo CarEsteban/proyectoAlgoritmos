@@ -10,6 +10,7 @@ import sys
 from modulos import *
  
 
+df = pd.DataFrame(columns=['Usuario', 'Password'])  
 
 
 
@@ -37,8 +38,7 @@ while ciclo == True:
         print("BIENVENIDO AL REGISTRO")
         print("--------------------------------------")
 
-        df = pd.DataFrame(columns=['Usuario', 'Password'])  
-        df = Registrarse(df)
+        Registrarse(df)
  
         #PREGUNTA PARA REPETIR EL CODIGO
         ciclo = pregunta(ciclo)
