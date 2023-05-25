@@ -10,10 +10,11 @@ def Registrarse(df):
 
     addrow = pd.DataFrame({'Usuario': [name], 'Password': [password]})
 
-    df = pd.concat([df, addrow], ignore_index=True)
-    print(df)
+    dfNew = pd.concat([df, addrow])
+    dfNew.to_csv("Usuarios.csv", index=False)
+    print(dfNew)
 
-    return df
+    return dfNew
 
 
 
@@ -66,6 +67,7 @@ def CambiarDatos(df):
         if(option == 2):
             newPassword = input("Ingrese la nueva contraseña de su cuenta: ")
             df.at[int(maskPassword.index.values), 'Password'] = newPassword
+    df.to_csv("Usuarios.csv", index=False)
           
 
 def Categorias():

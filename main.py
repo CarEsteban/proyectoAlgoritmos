@@ -9,17 +9,17 @@ import os
 import sys
 from modulos import *
  
-df = pd.DataFrame(columns=['Usuario', 'Password']) 
 ciclo = True
 
 
 
 while ciclo == True:
+    df = pd.read_csv("Usuarios.csv")
     print("Bienvenido a Studify")
     print("1. Iniciar Sesion: \n2. Registrarse: \n3. Modificar Datos")
     opcion= int(input("Que decea hacer? "))
-    os.system("pause")
-    os.system("cls")
+    #os.system("pause")
+    #os.system("cls")
                
     if opcion == 1:
         print("BIENVENIDO AL INICIO DE SESIÓN")
@@ -35,7 +35,7 @@ while ciclo == True:
         print("BIENVENIDO AL REGISTRO")
         print("--------------------------------------")
  
-        df = Registrarse(df)
+        Registrarse(df)
  
         #PREGUNTA PARA REPETIR EL CODIGO
         ciclo = pregunta(ciclo)
