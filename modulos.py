@@ -6,21 +6,7 @@ import matplotlib.pyplot as plt
 
 dfDatos = pd.read_csv("Datos.csv")
 
-def Registrarse(df): 
-    #df = pd.DataFrame(columns=['Usuario', 'Contraseña'])  
-    name = input("Ingrese el nombre de la cuenta: ")
-    password = input("Ingrese la contraseña de la cuenta: ")
-
-    addrow = pd.DataFrame({'Usuario': [name], 'Password': [password]})
-
-    dfNew = pd.concat([df, addrow])
-    dfNew.to_csv("Usuarios.csv", index=False)
-    print(dfNew)
-
-    return dfNew
-
-
-
+#FUNCIÓN PARA PODER REGRESAR AL MENU O SALIR
 def pregunta(estado):
     opcion = input("Desea realizar otra operacion? Si/No: ")
     opcion = opcion.lower().replace('í', 'i')
@@ -36,6 +22,21 @@ def pregunta(estado):
         sys.exit(0)
     return estado 
      
+#FUNCION PARA REGISTRAR UN NUEVO USUARIO
+def Registrarse(df): 
+    #df = pd.DataFrame(columns=['Usuario', 'Contraseña'])  
+    name = input("Ingrese el nombre de la cuenta: ")
+    password = input("Ingrese la contraseña de la cuenta: ")
+
+    addrow = pd.DataFrame({'Usuario': [name], 'Password': [password]})
+
+    dfNew = pd.concat([df, addrow])
+    dfNew.to_csv("Usuarios.csv", index=False)
+    print(dfNew)
+
+    return dfNew
+
+#FUNCION PARA REGISTRARSE CON EL USUARIO YA CREADO
 def IniciarSesion(df):
     
     name = input("Ingrese el usuario de su cuenta: ")
@@ -49,6 +50,7 @@ def IniciarSesion(df):
         
         os.system("pause")
         os.system("cls")
+        #FUNCIÓN PARA ACCEDER A LAS CATEGORIAS
         Categorias()
         
     #print(df[maskName].index)
@@ -66,18 +68,75 @@ def CambiarDatos(df):
         
         if(option == 1):
             newName = input("Ingrese el nuevo nombre de su cuenta: ")
-            df.at[int(maskName.index.values), 'Usuario'] = newName
+            indice = maskName.idxmax()
+            df.at[int(indice), 'Usuario'] = newName
         if(option == 2):
             newPassword = input("Ingrese la nueva contraseña de su cuenta: ")
-            df.at[int(maskPassword.index.values), 'Password'] = newPassword
+            indice = maskPassword.idxmax()
+            df.at[int(indice), 'Password'] = newPassword
     df.to_csv("Usuarios.csv", index=False)
 
 
+def Categorias():
+    opCat=0
+    opCat=int(input("Elige una categoría \n 1. Arte \n 2. Numérico \n 3. Negocios \n 4. Idiomas \n 5. Ciencias \n 6. Tecnología \n Presiona 7 para salir. \n"))
+    #Menú cursos de arte
+    os.system("pause")
+    os.system("cls")
+    if opCat==1:
+        InfoCategoria("Arte")
+            
+    #Menú cursos numéricos
+    elif opCat==2:
+        InfoCategoria("Numerico")
+    #Menú cursos de negocios
+    elif opCat==3:
+        InfoCategoria("Emprendimiento")
+    #Menú cursos de idiomas
+    elif opCat==4:
+        InfoCategoria("Idiomas")
+    #Menú cursos de ciencias
+    elif opCat==5:
+        InfoCategoria("Ciencia")
+    #Menú cursos de tecnología
+    elif opCat==6:
+        InfoCategoria("Computacional")
+    else:
+        print("Elige una opción válida.")
+
 def InfoCategoria(categoria):
     dfCategoria = dfDatos[dfDatos["courseCategory"] == categoria]
-    interesados = dfCategoria["interestCategory"].values[0]
-    suscriptores = dfCategoria["suscribersCategory"].values[0]
-    calificacionCategoria = dfCategoria["platformRating"].values[0]
+    
+    
+    
+    #interesados = dfCategoria["interestCategory"].values[0]
+    interesados = 0
+    print(len(dfCategoria))
+    for i in range(len(dfCategoria)):
+        interesados = dfCategoria["interestCategory"].values.sum()
+    
+    
+    
+    #suscriptores = dfCategoria["suscribersCategory"].values[0]
+    suscriptores = 0
+    
+    print(len(dfCategoria))
+    for i in range(len(dfCategoria)):
+        suscriptores = dfCategoria["suscribersCategory"].values.sum()
+        
+        
+    #calificacionCategoria = dfCategoria["platformRating"].values[0]
+    calificacionCategoria = 0
+    rating = 0
+    
+    print(len(dfCategoria))
+    for i in range(len(dfCategoria)):
+        rating = dfCategoria["platformRating"].values.sum()
+        
+        calificacionCategoria = rating / len(dfCategoria)
+        
+    
+    
     dfCursos = dfCategoria["course"].values
     i = 1
     print(f"{categoria}")
@@ -113,39 +172,6 @@ def InfoCursos(index, dfCategoria):
     print(f"Este curso tiene una calificación de {calificacion} por los suscriptores de Studify.")
     print(f"{descripcion}")
     print(f"{inscrito} personas se han inscrito a este curso desde Studify.")
-
-def Categorias():
-#Pantalla de categorías
-#¡Nota! Los datos como nombres de los cursos, cantidad de suscriptores y calificaciones no son datos verdaderos, su único fin es ejemplificar cómo se verán en la pantalla de Turtle del programa final.
-#Menú principal
-#opCat sirve para elegir la categoría de los cursos
-#opCur sirve para elegir el curso dentro de la categoría seleccionada
-
-    opCat=0
-    opCat=int(input("Elige una categoría \n 1. Arte \n 2. Numérico \n 3. Negocios \n 4. Idiomas \n 5. Ciencias \n 6. Tecnología \n Presiona 7 para salir. \n"))
-    #Menú cursos de arte
-    os.system("pause")
-    os.system("cls")
-    if opCat==1:
-        InfoCategoria("Arte")
-            
-    #Menú cursos numéricos
-    elif opCat==2:
-        InfoCategoria("Numerico")
-    #Menú cursos de negocios
-    elif opCat==3:
-        InfoCategoria("Emprendimiento")
-    #Menú cursos de idiomas
-    elif opCat==4:
-        InfoCategoria("Idiomas")
-    #Menú cursos de ciencias
-    elif opCat==5:
-        InfoCategoria("Ciencia")
-    #Menú cursos de tecnología
-    elif opCat==6:
-        InfoCategoria("Computacional")
-    else:
-        print("Elige una opción válida.")
 
 def GraficaRatingPlataforma():
     dfInfo = dfDatos[["platform", "platformRating"]]

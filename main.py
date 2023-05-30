@@ -5,8 +5,6 @@
 # carné 23009, 23556, 23016, 23132
 
 import pandas as pd
-import os
-import sys
 from modulos import *
  
 ciclo = True
@@ -17,9 +15,9 @@ while ciclo == True:
     df = pd.read_csv("Usuarios.csv")
     print("Bienvenido a Studify")
     print("1. Iniciar Sesion: \n2. Registrarse: \n3. Modificar Datos")
-    opcion= int(input("Que decea hacer? "))
-    #os.system("pause")
-    #os.system("cls")
+    opcion= int(input("Que desea hacer? "))
+    os.system("pause")
+    os.system("cls")
                
     if opcion == 1:
         print("BIENVENIDO AL INICIO DE SESIÓN")
