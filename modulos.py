@@ -111,7 +111,6 @@ def InfoCategoria(categoria):
     
     #interesados = dfCategoria["interestCategory"].values[0]
     interesados = 0
-    print(len(dfCategoria))
     for i in range(len(dfCategoria)):
         interesados = dfCategoria["interestCategory"].values.sum()
     
@@ -120,7 +119,6 @@ def InfoCategoria(categoria):
     #suscriptores = dfCategoria["suscribersCategory"].values[0]
     suscriptores = 0
     
-    print(len(dfCategoria))
     for i in range(len(dfCategoria)):
         suscriptores = dfCategoria["suscribersCategory"].values.sum()
         
@@ -129,7 +127,6 @@ def InfoCategoria(categoria):
     calificacionCategoria = 0
     rating = 0
     
-    print(len(dfCategoria))
     for i in range(len(dfCategoria)):
         rating = dfCategoria["platformRating"].values.sum()
         
@@ -151,13 +148,16 @@ def InfoCategoria(categoria):
         i += 1
 
     print("¿Te gustaría ver la información de alguno de estos cursos?")
-    opcion = int(input("\n 1. Si \n 2. No \n"))
+    opcion = input("\n 1. Si \n 2. No \n").lower().replace('Sí','si').replace('sí','si')
 
-    if opcion == 1:
+    if opcion == 'si':
         opCur = int(input("¿Cuál de estos cursos te gustaría probar? Ingresa una opción entre 1 y 6. Presione 7 para salir.\n"))
         index = opCur - 1
+        
+        os.system("pause")
+        os.system("cls")
         InfoCursos(index, dfCategoria)
-    elif opcion == 2:
+    elif opcion == 'no':
         print("Regresando al menu principal")
     else:
         print("Opcion ingresada inváldia")
@@ -219,13 +219,5 @@ def EstadisticasCategoria(categoria):
 def InformacionCursos(categoria):
     dfCursos = dfDatos[dfDatos["courseCategory"] == categoria]
     print(dfCursos)
-
-
-#Categorias()
-#GraficaRatingPlataforma()
-#GraficaCategoriaInteresados()
-#GraficaCursoInscritos("Arte")
-#EstadisticasCategoria("Arte")
-InformacionCursos("Arte")
 
 
