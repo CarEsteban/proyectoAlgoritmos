@@ -44,7 +44,8 @@ def pantallaInicio():
 
 
     # Creación de los subtítulos
-    subtitulos = ["1. Iniciar Sesión", "2. Registrarse", "3. Modificar Datos", "4. Mostrar Usuarios", "5. Mostrar graficas", "6. Salir"]
+    subtitulos = ["1. Iniciar Sesión", "2. Registrarse", "3. Modificar Datos", "4. Mostrar Usuarios", "5. Salir"]
+    #5. Mostrar gráficas
     y_pos_sub = pos_y - 50  # Posición vertical inicial
 
     for subtitulo in subtitulos:
@@ -144,7 +145,7 @@ while ciclo == True:
         #PREGUNTA PARA REPETIR EL CODIGO
         ciclo = pregunta(ciclo)
         
-         
+        '''
     elif opcion == 5:
          
         borrarVentana(window)
@@ -152,7 +153,9 @@ while ciclo == True:
         titulosPantallas(window,mouse,'Gráficas estadíticas de Studify',screen_width,screen_height,'#DEB841')
  
         textos = ["1. Ver gráfica de rating","2. Ver gráfica de interesados","3. Ver gráfica de suscritos","4. Estadísticas globales","5. Estadísticas por categoría"]
-                
+            
+        pos_x = screen_width / 2    
+        pos_y = screen_height / 1.5
         y_pos_sub = pos_y - 50  # Posición vertical inicial
 
         for texto in textos:
@@ -161,24 +164,39 @@ while ciclo == True:
             y_pos_sub -= 30  # Desplazamiento vertical para el siguiente subtítulo  
                     
                 
-                
+         
                 
         GraficaRatingPlataforma()
         GraficaCategoriaInteresados()
         GraficaCategoriaSuscritos()
         EstadisticasGlobales() 
-        GraficaCursoInscritos(categoria)
-        EstadisticasCategoria(categoria)
-        InformacionCursos(categoria)
+        GraficaCursoInscritos('Arte')
+        GraficaCursoInscritos('Numerico')
+        GraficaCursoInscritos('Emprendimiento')
+        GraficaCursoInscritos('Idiomas')
+        GraficaCursoInscritos('Ciencias')
+        GraficaCursoInscritos('Tecnología')
+        EstadisticasCategoria('Arte')
+        EstadisticasCategoria('Numerico')
+        EstadisticasCategoria('Emprendimiento')
+        EstadisticasCategoria('Idiomas')
+        EstadisticasCategoria('Ciencias')
+        EstadisticasCategoria('Tecnología')
+        InformacionCursos('Arte')
+        InformacionCursos('Numerico')
+        InformacionCursos('Emprendimiento')
+        InformacionCursos('Idiomas')
+        InformacionCursos('Ciencias')
+        InformacionCursos('Tecnología')
         
         #PREGUNTA PARA REPETIR EL CODIGO
         ciclo = pregunta(ciclo)
-    
-    elif opcion == 6:
+    '''
+    elif opcion == 5:
         print("Saliendo del programa")
         break
     
-    elif opcion > 6 or opcion <= 0:
+    elif opcion > 5 or opcion <= 0:
         print("Estas opciones no existen")
         
         #PREGUNTA PARA REPETIR EL CODIGO
