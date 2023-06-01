@@ -398,6 +398,9 @@ def InfoCursos(index, dfCategoria,mouse,window,screen_width,screen_height):
         
         mouse.write(textosEscribir[i], align="center", font=("Arial", 16))
         
+    os.system("pause")
+    os.system("cls")
+        
     
 
 def GraficaRatingPlataforma():

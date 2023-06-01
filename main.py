@@ -44,7 +44,7 @@ def pantallaInicio():
 
 
     # Creación de los subtítulos
-    subtitulos = ["1. Iniciar Sesión", "2. Registrarse", "3. Modificar Datos", "4. Mostrar Usuarios", "5. Salir"]
+    subtitulos = ["1. Iniciar Sesión", "2. Registrarse", "3. Modificar Datos", "4. Mostrar Usuarios", "5. Mostrar graficas", "6. Salir"]
     y_pos_sub = pos_y - 50  # Posición vertical inicial
 
     for subtitulo in subtitulos:
@@ -146,16 +146,39 @@ while ciclo == True:
         
          
     elif opcion == 5:
+         
+        borrarVentana(window)
+        
+        titulosPantallas(window,mouse,'Gráficas estadíticas de Studify',screen_width,screen_height,'#DEB841')
+ 
+        textos = ["1. Ver gráfica de rating","2. Ver gráfica de interesados","3. Ver gráfica de suscritos","4. Estadísticas globales","5. Estadísticas por categoría"]
+                
+        y_pos_sub = pos_y - 50  # Posición vertical inicial
+
+        for texto in textos:
+            mouse.goto(pos_x, y_pos_sub)
+            mouse.write(texto, align="center", font=("Arial", 16))
+            y_pos_sub -= 30  # Desplazamiento vertical para el siguiente subtítulo  
+                    
+                
+                
+                
+        GraficaRatingPlataforma()
+        GraficaCategoriaInteresados()
+        GraficaCategoriaSuscritos()
+        EstadisticasGlobales() 
+        GraficaCursoInscritos(categoria)
+        EstadisticasCategoria(categoria)
+        InformacionCursos(categoria)
+        
+        #PREGUNTA PARA REPETIR EL CODIGO
+        ciclo = pregunta(ciclo)
+    
+    elif opcion == 6:
         print("Saliendo del programa")
         break
     
-    #elif opcion == 6:
-    #    GraficaRatingPlataforma()
-    #    GraficaCategoriaInteresados()
-    #    GraficaCategoriaSuscritos()
-    #    EstadisticasGlobales() 
-    
-    elif opcion > 5 or opcion <= 0:
+    elif opcion > 6 or opcion <= 0:
         print("Estas opciones no existen")
         
         #PREGUNTA PARA REPETIR EL CODIGO
