@@ -14,8 +14,18 @@ ciclo = True
 while ciclo == True:
     df = pd.read_csv("Usuarios.csv")
     print("Bienvenido a Studify")
-    print("1. Iniciar Sesion: \n2. Registrarse: \n3. Modificar Datos")
-    opcion= int(input("Que desea hacer? "))
+    print("1. Iniciar Sesion: \n2. Registrarse: \n3. Modificar Datos \n4. Mostrar usuarios \n5. Salir")
+    
+    try:
+        opcion = int(input("Que desea hacer? "))
+    except ValueError:
+        print("Solo se admiten numeros del 1 al 5")
+        
+        os.system("pause")
+        os.system("cls")
+        
+        continue
+    
     os.system("pause")
     os.system("cls")
                
@@ -46,7 +56,23 @@ while ciclo == True:
         
         #PREGUNTA PARA REPETIR EL CODIGO
         ciclo = pregunta(ciclo)
+        
+    elif opcion == 4:
+        
+        print(df)
+        #PREGUNTA PARA REPETIR EL CODIGO
+        ciclo = pregunta(ciclo)
+        
          
-    else:
+    elif opcion == 5:
         print("Saliendo del programa")
         break
+    
+
+    elif opcion > 5 or opcion <= 0:
+        print("Estas opciones no existen")
+        
+        #PREGUNTA PARA REPETIR EL CODIGO
+        ciclo = pregunta(ciclo)
+
+print("Programa finalizado")

@@ -8,19 +8,27 @@ dfDatos = pd.read_csv("Datos.csv")
 
 #FUNCIÓN PARA PODER REGRESAR AL MENU O SALIR
 def pregunta(estado):
-    opcion = input("Desea realizar otra operacion? Si/No: ")
-    opcion = opcion.lower().replace('í', 'i')
-    if opcion == 'si':
-        estado = True
-        os.system("pause")
-        os.system("cls")
-      
-    elif opcion == 'no':
-        os.system("cls")
-        print("Saliendo del programa...")
-        estado = False
-        sys.exit(0)
-    return estado 
+    while True:
+        opcion = input("Desea realizar otra operacion? Si/No: ")
+        opcion = opcion.lower().replace('í', 'i')
+        
+        if opcion == 'si':
+            estado = True
+            os.system("pause")
+            os.system("cls")
+            break  # Salir del bucle si la opción es válida
+        
+        elif opcion == 'no':
+            os.system("cls")
+            print("Saliendo del programa...")
+            estado = False
+            sys.exit(0)
+        
+        else:
+            print("Opción no válida, ingresar de nuevo")
+    
+    return estado
+
      
 #FUNCION PARA REGISTRAR UN NUEVO USUARIO
 def Registrarse(df): 
@@ -38,129 +46,171 @@ def Registrarse(df):
 
 #FUNCION PARA REGISTRARSE CON EL USUARIO YA CREADO
 def IniciarSesion(df):
+    logged_in = False  # Variable para controlar el inicio de sesión
+
+    while not logged_in:  # Repetir hasta que se inicie sesión correctamente
+        name = input("Ingrese el usuario de su cuenta: ")
+        password = input("Ingrese la contraseña de su cuenta: ")
     
-    name = input("Ingrese el usuario de su cuenta: ")
-    password = input("Ingrese la contraseña de su cuenta: ")
+        maskName = df['Usuario'].str.contains(name)
+        maskPassword = df['Password'].str.contains(password)
     
-    maskName = df['Usuario'].str.contains(name)
-    maskPassword = df['Password'].str.contains(password)
-    
-    if (df[maskName].index == df[maskPassword].index):
-        print("Exito en iniciar sesion")
+        if df[maskName & maskPassword].empty:  # Verificar si no hay coincidencias en los datos
+            print("Usuario o contraseña no válida")
+        else:
+            print("Inicio de sesión exitoso")
+            logged_in = True  # Actualizar el estado de inicio de sesión
+            
+            os.system("pause")
+            os.system("cls")
+            #FUNCIÓN PARA ACCEDER A LAS CATEGORIAS
+            Categorias()
         
-        os.system("pause")
-        os.system("cls")
-        #FUNCIÓN PARA ACCEDER A LAS CATEGORIAS
-        Categorias()
-        
-    #print(df[maskName].index)
          
 def CambiarDatos(df):
-    
+    # Solicitar nombre de usuario y contraseña
     name = input("Ingrese el usuario de su cuenta: ")
     password = input("Ingrese la contraseña de su cuenta: ")
     
-    maskName = df['Usuario'].str.contains(name)
-    maskPassword = df['Password'].str.contains(password)
+    # Verificar coincidencia exacta de nombre de usuario y contraseña en el DataFrame
+    maskName = df['Usuario'] == name
+    maskPassword = df['Password'] == password
     
-    if (df[maskName].index == df[maskPassword].index):
-        option = int(input("Seleccione una opcion para modificacion \n 1. Modificar nombre \n 2. Modificar contraseña \n"))
+    if maskName.any() and maskPassword.any():
+        # Si hay coincidencia exacta, solicitar opción de modificación
+        option = input("Seleccione una opción para modificación: \n1. Modificar nombre \n2. Modificar contraseña \n")
         
-        if(option == 1):
-            newName = input("Ingrese el nuevo nombre de su cuenta: ")
-            indice = maskName.idxmax()
-            df.at[int(indice), 'Usuario'] = newName
-        if(option == 2):
-            newPassword = input("Ingrese la nueva contraseña de su cuenta: ")
-            indice = maskPassword.idxmax()
-            df.at[int(indice), 'Password'] = newPassword
+        if option.isdigit():
+            option = int(option)
+            
+            if option == 1:
+                # Modificar nombre de usuario
+                newName = input("Ingrese el nuevo nombre de su cuenta: ")
+                df.loc[maskName, 'Usuario'] = newName
+                
+            elif option == 2:
+                # Modificar contraseña
+                newPassword = input("Ingrese la nueva contraseña de su cuenta: ")
+                df.loc[maskPassword, 'Password'] = newPassword
+                
+            else:
+                # Opción no válida
+                print("Opción no válida, ingrese de nuevo")
+                
+        else:
+            # Opción no válida
+            print("Opción no válida, ingrese de nuevo")
+            
+    else:
+        # No hay coincidencia exacta de nombre de usuario y contraseña
+        print("Datos no proporcionados o agregados con anterioridad")
+    
+    # Guardar los cambios en el archivo CSV
     df.to_csv("Usuarios.csv", index=False)
 
 
+
+
+
+
 def Categorias():
-    opCat=0
-    opCat=int(input("Elige una categoría \n 1. Arte \n 2. Numérico \n 3. Negocios \n 4. Idiomas \n 5. Ciencias \n 6. Tecnología \n Presiona 7 para salir. \n"))
-    #Menú cursos de arte
-    os.system("pause")
-    os.system("cls")
-    if opCat==1:
-        InfoCategoria("Arte")
-            
-    #Menú cursos numéricos
-    elif opCat==2:
-        InfoCategoria("Numerico")
-    #Menú cursos de negocios
-    elif opCat==3:
-        InfoCategoria("Emprendimiento")
-    #Menú cursos de idiomas
-    elif opCat==4:
-        InfoCategoria("Idiomas")
-    #Menú cursos de ciencias
-    elif opCat==5:
-        InfoCategoria("Ciencia")
-    #Menú cursos de tecnología
-    elif opCat==6:
-        InfoCategoria("Computacional")
-    else:
-        print("Elige una opción válida.")
+    while True:
+        try:
+            opCat = int(input("Elige una categoría \n 1. Arte \n 2. Numérico \n 3. Negocios \n 4. Idiomas \n 5. Ciencias \n 6. Tecnología \n Presiona 7 para salir. \n"))
+        except ValueError:
+            print("Opciones no válidas")
+            os.system("pause")
+            os.system("cls")
+            continue
+
+        if opCat < 1 or opCat > 7:
+            print("Ingrese un número válido")
+            os.system("pause")
+            os.system("cls")
+            continue
+        
+        os.system("pause")
+        os.system("cls")
+        #Menú cursos de arte
+        if opCat == 1:
+            InfoCategoria("Arte")
+        #Menú cursos numéricos
+        elif opCat == 2:
+            InfoCategoria("Numerico")
+        #Menú cursos de negocios
+        elif opCat == 3:
+            InfoCategoria("Emprendimiento")
+        #Menú cursos de idiomas
+        elif opCat == 4:
+            InfoCategoria("Idiomas")
+        #Menú cursos de ciencias    
+        elif opCat == 5:
+            InfoCategoria("Ciencia")
+        #Menú cursos de tecnología
+        elif opCat == 6:
+            InfoCategoria("Computacional")
+        else:
+            print("Saliendo de las categorías.... \n Regresando al menú principal")
+
+        break
+
 
 def InfoCategoria(categoria):
     dfCategoria = dfDatos[dfDatos["courseCategory"] == categoria]
     
+    # Cálculo de interesados
+    interesados = dfCategoria["interestCategory"].sum()
     
+    # Cálculo de suscriptores
+    suscriptores = dfCategoria["suscribersCategory"].sum()
     
-    #interesados = dfCategoria["interestCategory"].values[0]
-    interesados = 0
-    for i in range(len(dfCategoria)):
-        interesados = dfCategoria["interestCategory"].values.sum()
-    
-    
-    
-    #suscriptores = dfCategoria["suscribersCategory"].values[0]
-    suscriptores = 0
-    
-    for i in range(len(dfCategoria)):
-        suscriptores = dfCategoria["suscribersCategory"].values.sum()
-        
-        
-    #calificacionCategoria = dfCategoria["platformRating"].values[0]
-    calificacionCategoria = 0
-    rating = 0
-    
-    for i in range(len(dfCategoria)):
-        rating = dfCategoria["platformRating"].values.sum()
-        
-        calificacionCategoria = rating / len(dfCategoria)
-        
-    
+    # Cálculo de calificación promedio de la categoría
+    calificacionCategoria = dfCategoria["platformRating"].mean()
     
     dfCursos = dfCategoria["course"].values
-    i = 1
+    
     print(f"{categoria}")
-    #print("¡En esta categoría podrás encontrar cursos de páginas web, blogs, tutoriales y bocetos de ejemplo que te ayudarán a dejar volar tu imaginación!") 
-    #PARA QUE EL CÓDIGO DE ARRIBA FUNCIONE SE DEBE AÑADIR UNA NUEVA COLUMNA AL DATAFRAME "dfDatos", cambio en espera
     print(f"{interesados} personas se han interesado en esta categoría.")
     print(f"{suscriptores} personas se han suscrito a este curso desde Studify.")
     print(f"Esta categoría tiene una clasificación de {calificacionCategoria} por parte de los suscriptores de Studify.")
     print("Estos son los cursos más populares de esta categoría: ")
+    
+    i = 1
     for curso in dfCursos:   
         print(f"{i}. {curso}")
         i += 1
-
-    print("¿Te gustaría ver la información de alguno de estos cursos?")
-    opcion = input("\n 1. Si \n 2. No \n").lower().replace('Sí','si').replace('sí','si')
-
-    if opcion == 'si':
-        opCur = int(input("¿Cuál de estos cursos te gustaría probar? Ingresa una opción entre 1 y 6. Presione 7 para salir.\n"))
-        index = opCur - 1
+    
+    while True:
+        # Pregunta al usuario si desea ver la información de alguno de los cursos
+        opcion = input("¿Te gustaría ver la información de alguno de estos cursos? (Si/No): ").lower()
         
-        os.system("pause")
-        os.system("cls")
-        InfoCursos(index, dfCategoria)
-    elif opcion == 'no':
-        print("Regresando al menu principal")
-    else:
-        print("Opcion ingresada inváldia")
+        if opcion == "si":
+            while True:
+                try:
+                    # Pregunta al usuario qué curso desea ver
+                    opCur = int(input("¿Cuál de estos cursos te gustaría probar? Ingresa una opción entre 1 y 6. Presione 7 para salir: "))
+                    
+                    if opCur < 1 or opCur > 6:
+                        print("Ingrese un número válido")
+                        continue
+                    
+                    os.system("pause")
+                    os.system("cls")
+                    InfoCursos(opCur - 1, dfCategoria)
+                    
+                except ValueError:
+                    print("Opción no válida")
+                    continue
+                
+                break
+                
+        elif opcion == "no":
+            print("Regresando al menú principal")
+            break
+            
+        else:
+            print("Opción no válida")
+
 
 def InfoCursos(index, dfCategoria):
 
