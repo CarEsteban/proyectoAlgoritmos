@@ -15,7 +15,7 @@ screen_width, screen_height = turtle.screensize()
 window = turtle.Screen()
 
 #Configuraciones de turlte
-turtle.setup(width=0.5, height=0.5, startx=None, starty=None)
+turtle.setup(width=0.5, height=0.6, startx=None, starty=None)
 turtle.setworldcoordinates(0, 0, screen_width, screen_height)
 mouse.speed(0)
 
@@ -44,9 +44,9 @@ def pantallaInicio():
 
 
     # Creación de los subtítulos
-    subtitulos = ["1. Iniciar Sesión", "2. Registrarse", "3. Modificar Datos", "4. Mostrar Usuarios", "5. Salir"]
-    #5. Mostrar gráficas
-    y_pos_sub = pos_y - 50  # Posición vertical inicial
+    subtitulos = ["1. Iniciar Sesión", "2. Registrarse", "3. Modificar Datos", "4. Mostrar Usuarios", "5. Mostrar gráficas", "6. Salir"]
+    
+    y_pos_sub = pos_y - 20  # Posición vertical inicial
 
     for subtitulo in subtitulos:
         mouse.goto(pos_x, y_pos_sub)
@@ -145,58 +145,124 @@ while ciclo == True:
         #PREGUNTA PARA REPETIR EL CODIGO
         ciclo = pregunta(ciclo)
         
-        '''
-    elif opcion == 5:
-         
-        borrarVentana(window)
         
-        titulosPantallas(window,mouse,'Gráficas estadíticas de Studify',screen_width,screen_height,'#DEB841')
- 
-        textos = ["1. Ver gráfica de rating","2. Ver gráfica de interesados","3. Ver gráfica de suscritos","4. Estadísticas globales","5. Estadísticas por categoría"]
-            
-        pos_x = screen_width / 2    
-        pos_y = screen_height / 1.5
-        y_pos_sub = pos_y - 50  # Posición vertical inicial
+    elif opcion == 5:
+        borrarVentana(window)
+
+        titulosPantallas(window, mouse, 'Gráficas estadíticas de Studify', screen_width, screen_height, '#DEB841')
+
+        pos_x = screen_width / 2
+        pos_y = screen_height / 2
+        y_pos_sub = pos_y - 20  # Posición vertical inicial
+
+        textos = ["1. Ver gráfica de rating", "2. Ver gráfica de interesados", "3. Ver gráfica de suscritos", "4. Estadísticas globales", "5. Estadísticas por categoría"]
 
         for texto in textos:
             mouse.goto(pos_x, y_pos_sub)
             mouse.write(texto, align="center", font=("Arial", 16))
-            y_pos_sub -= 30  # Desplazamiento vertical para el siguiente subtítulo  
-                    
-                
-         
-                
-        GraficaRatingPlataforma()
-        GraficaCategoriaInteresados()
-        GraficaCategoriaSuscritos()
-        EstadisticasGlobales() 
-        GraficaCursoInscritos('Arte')
-        GraficaCursoInscritos('Numerico')
-        GraficaCursoInscritos('Emprendimiento')
-        GraficaCursoInscritos('Idiomas')
-        GraficaCursoInscritos('Ciencias')
-        GraficaCursoInscritos('Tecnología')
-        EstadisticasCategoria('Arte')
-        EstadisticasCategoria('Numerico')
-        EstadisticasCategoria('Emprendimiento')
-        EstadisticasCategoria('Idiomas')
-        EstadisticasCategoria('Ciencias')
-        EstadisticasCategoria('Tecnología')
-        InformacionCursos('Arte')
-        InformacionCursos('Numerico')
-        InformacionCursos('Emprendimiento')
-        InformacionCursos('Idiomas')
-        InformacionCursos('Ciencias')
-        InformacionCursos('Tecnología')
-        
-        #PREGUNTA PARA REPETIR EL CODIGO
+            y_pos_sub -= 30  # Desplazamiento vertical para siguiente subtítulo
+
+        opcGraficas = input("Que desea hacer? \n")
+        if not opcGraficas.isdigit() or int(opcGraficas) < 1 or int(opcGraficas) > 5:
+            print("Opcion no valida")
+        else:
+            opcGraficas = int(opcGraficas)
+            if opcGraficas == 1:
+                borrarVentana(window)
+                titulosPantallas(window, mouse, 'Gráfica de Rating', screen_width, screen_height, '#6fd456')
+                GraficaRatingPlataforma()
+            elif opcGraficas == 2:
+                borrarVentana(window)
+                titulosPantallas(window, mouse, 'Gráfica de Interesados', screen_width, screen_height, '#6fd456')
+                GraficaCategoriaInteresados()
+            elif opcGraficas == 3:
+                borrarVentana(window)
+                titulosPantallas(window, mouse, 'Gráfica de suscritos', screen_width, screen_height, '#6fd456')
+                GraficaCategoriaSuscritos()
+            elif opcGraficas == 4:
+                borrarVentana(window)
+                titulosPantallas(window, mouse, 'Estadísticas globales', screen_width, screen_height, '#6fd456')
+                EstadisticasGlobales()
+            elif opcGraficas == 5:
+                os.system("cls")
+                borrarVentana(window)
+                titulosPantallas(window, mouse, 'Gráficas Inscritos por Categoría', screen_width, screen_height, '#DEB841')
+
+                textos = ["Arte", "Numérico", "Emprendimiento", "Idiomas", "Ciencias", "Tecnología"]
+
+                mouse.goto(60, 115)
+
+                for i in range(2):
+                    for j in range(3):
+                        index = i * 3 + j
+                        mouse.write(str(index + 1) + ") " + textos[index], align="center", font=("Arial", 24, "bold"))
+                        mouse.forward(125)
+
+                    mouse.goto(60, mouse.ycor() - 50)
+
+                opcCurso = input("Que desea hacer? \n")
+                if not opcCurso.isdigit() or int(opcCurso) < 1 or int(opcCurso) > 6:
+                    print("Opcion no valida")
+                else:
+                    opcCurso = int(opcCurso)
+                    if opcCurso == 1:
+                        print("-" * 100)
+                        print("ESTADÍSTICAS")
+                        EstadisticasCategoria('Arte')
+                        print("-" * 100)
+                        print("INFORMACIÓN")
+                        GraficaCursoInscritos('Arte')
+                        InformacionCursos('Arte')
+                    elif opcCurso == 2:
+                        print("-" * 100)
+                        print("ESTADÍSTICAS")
+                        EstadisticasCategoria('Numerico')
+                        print("-" * 100)
+                        print("INFORMACIÓN")
+                        InformacionCursos('Numerico')
+                        GraficaCursoInscritos('Numerico')
+                    elif opcCurso == 3:
+                        print("-" * 100)
+                        print("ESTADÍSTICAS")
+                        EstadisticasCategoria('Emprendimiento')
+                        print("-" * 100)
+                        print("INFORMACIÓN")
+                        InformacionCursos('Emprendimiento')
+                        GraficaCursoInscritos('Emprendimiento')
+                    elif opcCurso == 4:
+                        print("-" * 100)
+                        print("ESTADÍSTICAS")
+                        EstadisticasCategoria('Idiomas')
+                        print("-" * 100)
+                        print("INFORMACIÓN")
+                        InformacionCursos('Idiomas')
+                        GraficaCursoInscritos('Idiomas')
+                    elif opcCurso == 5:
+                        print("-" * 100)
+                        print("ESTADÍSTICAS")
+                        EstadisticasCategoria('Ciencias')
+                        print("-" * 100)
+                        print("INFORMACIÓN")
+                        InformacionCursos('Ciencias')
+                        GraficaCursoInscritos('Ciencias')
+                    elif opcCurso == 6:
+                        print("-" * 100)
+                        print("ESTADÍSTICAS")
+                        EstadisticasCategoria('Tecnología')
+                        print("-" * 100)
+                        print("INFORMACIÓN")
+                        InformacionCursos('Tecnología')
+                        GraficaCursoInscritos('Tecnología')
+
+        # PREGUNTA PARA REPETIR EL CÓDIGO
         ciclo = pregunta(ciclo)
-    '''
-    elif opcion == 5:
+
+    
+    elif opcion == 6:
         print("Saliendo del programa")
         break
     
-    elif opcion > 5 or opcion <= 0:
+    elif opcion > 6 or opcion <= 0:
         print("Estas opciones no existen")
         
         #PREGUNTA PARA REPETIR EL CODIGO

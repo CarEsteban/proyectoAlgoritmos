@@ -436,7 +436,7 @@ def GraficaCursoInscritos(categoria):
     dfGrafica.plot(x="course", y="userEnrolled",kind="bar")
     plt.title("Curso")
     plt.xlabel("Inscritos")
-    plt.xticks(rotation=0)
+    plt.xticks(rotation=90)
     plt.show()
 
 def EstadisticasGlobales():
